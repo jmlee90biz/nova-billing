@@ -1,4 +1,4 @@
-package com.sktelecom.nova.billing.payment.event;
+package com.sktelecom.nova.billing.usage.event;
 
 import java.util.UUID;
 

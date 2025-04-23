@@ -1,10 +1,6 @@
-package com.sktelecom.nova.modular.monolith.billing.invoice.internal;
+package com.sktelecom.nova.billing.invoice.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.invoice.api.InvoiceDto;
-import com.sktelecom.nova.modular.monolith.customer.subscription.api.SubscriptionStatus;
-
-import java.math.BigDecimal;
-import java.util.UUID;
+import com.sktelecom.nova.billing.invoice.api.InvoiceDto;
 
 class InvoiceMapper {
     static InvoiceDto toInvoiceDto(Invoice invoice) {

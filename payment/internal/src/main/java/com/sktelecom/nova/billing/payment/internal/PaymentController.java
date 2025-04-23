@@ -1,8 +1,8 @@
-package com.sktelecom.nova.modular.monolith.billing.payment.internal;
+package com.sktelecom.nova.billing.payment.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.payment.api.PaymentDto;
-import com.sktelecom.nova.modular.monolith.billing.payment.api.PaymentRequest;
-import com.sktelecom.nova.modular.monolith.billing.payment.api.PaymentService;
+import com.sktelecom.nova.billing.payment.api.PaymentDto;
+import com.sktelecom.nova.billing.payment.api.PaymentCreationRequest;
+import com.sktelecom.nova.billing.payment.api.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +21,8 @@ class PaymentController {
     }
 
     @PostMapping
-    public PaymentDto registerCustomer(PaymentRequest paymentRequest) {
-        return paymentService.createPayment(paymentRequest);
+    public PaymentDto registerCustomer(PaymentCreationRequest paymentCreationRequest) {
+        return paymentService.createPayment(paymentCreationRequest);
     }
 
     @GetMapping

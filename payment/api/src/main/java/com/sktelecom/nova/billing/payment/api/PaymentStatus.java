@@ -1,4 +1,4 @@
-package com.sktelecom.nova.modular.monolith.billing.payment.api;
+package com.sktelecom.nova.billing.payment.api;
 
 public enum PaymentStatus {
     COMPLETED,

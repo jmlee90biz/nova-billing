@@ -1,10 +1,11 @@
 @ApplicationModule(
-        displayName = "billing-payment",
+        displayName = "billing-payment-internal",
         allowedDependencies = {
-            "billing.invoice::event",
-        "common.notification::event"
+                "billing.payment.api",
+                "billing.payment.event",
+                "billing.invoice.event"
         }
 )
-package com.sktelecom.nova.modular.monolith.billing.payment;
+package com.sktelecom.nova.billing.payment.internal;
 
 import org.springframework.modulith.ApplicationModule;

@@ -1,6 +1,6 @@
-package com.sktelecom.nova.billing.payment.internal;
+package com.sktelecom.nova.billing.usage.internal;
 
-import com.sktelecom.nova.billing.payment.event.UsageRecordCreatedEvent;
+import com.sktelecom.nova.billing.usage.event.UsageRecordCreatedEvent;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

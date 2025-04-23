@@ -1,4 +1,4 @@
-package com.sktelecom.nova.billing.payment.internal;
+package com.sktelecom.nova.billing.usage.internal;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

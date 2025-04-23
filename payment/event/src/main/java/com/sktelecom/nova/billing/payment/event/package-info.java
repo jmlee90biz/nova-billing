@@ -1,4 +1,4 @@
-@NamedInterface("event")
-package com.sktelecom.nova.modular.monolith.billing.payment.event;
+@ApplicationModule(displayName="billing-payment-event")
+package com.sktelecom.nova.billing.payment.event;
 
-import org.springframework.modulith.NamedInterface;
+import org.springframework.modulith.ApplicationModule;

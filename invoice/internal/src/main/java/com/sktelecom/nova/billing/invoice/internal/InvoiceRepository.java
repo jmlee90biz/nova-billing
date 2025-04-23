@@ -1,4 +1,4 @@
-package com.sktelecom.nova.modular.monolith.billing.invoice.internal;
+package com.sktelecom.nova.billing.invoice.internal;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

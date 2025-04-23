@@ -1,13 +1,13 @@
-package com.sktelecom.nova.modular.monolith.billing.payment.internal;
+package com.sktelecom.nova.billing.payment.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.payment.api.PaymentDto;
-import com.sktelecom.nova.modular.monolith.billing.payment.api.PaymentRequest;
-import com.sktelecom.nova.modular.monolith.billing.payment.api.PaymentService;
+import com.sktelecom.nova.billing.payment.api.PaymentDto;
+import com.sktelecom.nova.billing.payment.api.PaymentCreationRequest;
+import com.sktelecom.nova.billing.payment.api.PaymentService;
 
-import com.sktelecom.nova.modular.monolith.shared.kernel.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,15 +16,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
-    private final EventPublisher eventPublisher;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    public PaymentDto createPayment(PaymentRequest paymentRequest) {
+    @Transactional
+    public PaymentDto createPayment(PaymentCreationRequest paymentCreationRequest) {
         Payment createdPayment = paymentRepository.save(
-                Payment.createPayment(paymentRequest.invoiceId(), paymentRequest.amount())
+                Payment.createPayment(paymentCreationRequest.invoiceId(), paymentCreationRequest.amount())
         );
 
-        eventPublisher.publish(createdPayment.createPaymentCreatedEvent());
+        eventPublisher.publishEvent(createdPayment.createPaymentCreatedEvent());
 
         return PaymentMapper.toPaymentDto(createdPayment);
     }

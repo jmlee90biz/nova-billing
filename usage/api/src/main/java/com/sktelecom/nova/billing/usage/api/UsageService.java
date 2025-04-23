@@ -1,4 +1,4 @@
-package com.sktelecom.nova.billing.payment.api;
+package com.sktelecom.nova.billing.usage.api;
 
 import java.util.List;
 import java.util.UUID;

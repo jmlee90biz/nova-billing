@@ -1,44 +1,48 @@
-package com.sktelecom.nova.modular.monolith.billing.invoice.internal;
+package com.sktelecom.nova.billing.invoice.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.invoice.api.InvoiceCreationRequest;
-import com.sktelecom.nova.modular.monolith.billing.invoice.api.InvoiceService;
-import com.sktelecom.nova.modular.monolith.billing.invoice.event.InvoiceClosedEvent;
-import com.sktelecom.nova.modular.monolith.billing.usage.event.UsageRecordCreatedEvent;
-import com.sktelecom.nova.modular.monolith.common.notification.event.NotificationRequestedEvent;
+import com.sktelecom.nova.billing.invoice.api.InvoiceCreationRequest;
+import com.sktelecom.nova.billing.invoice.api.InvoiceService;
+import com.sktelecom.nova.billing.invoice.event.InvoiceClosedEvent;
+import com.sktelecom.nova.billing.usage.event.UsageRecordCreatedEvent;
 
-import com.sktelecom.nova.modular.monolith.customer.subscription.event.SubscriptionActivatedEvent;
-import com.sktelecom.nova.modular.monolith.shared.kernel.EventPublisher;
+import com.sktelecom.nova.customer.subscription.event.SubscriptionActivatedEvent;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
 public class InvoiceEventListener {
     private final InvoiceService invoiceService;
-    private final EventPublisher eventPublisher;
+    private final ApplicationEventPublisher eventPublisher;
 
     //@Async("taskExecutor")
-    @ApplicationModuleListener
-    void onSubscriptionActivatedEvent(final SubscriptionActivatedEvent subscriptionActivatedEvent) {
+    //@ApplicationModuleListener
+    @EventListener
+    @Transactional
+    public void onSubscriptionActivatedEvent(final SubscriptionActivatedEvent subscriptionActivatedEvent) {
         invoiceService.createInvoice(InvoiceCreationRequest.createInvoiceCreationOrUpdateRequest(subscriptionActivatedEvent));
     }
 
     @ApplicationModuleListener
-    void onUsageRecordCreationEvent(final UsageRecordCreatedEvent usageRecordCreatedEvent) {
+    public void onUsageRecordCreationEvent(final UsageRecordCreatedEvent usageRecordCreatedEvent) {
         //invoiceService.createInvoice(InvoiceCreationRequest.createInvoiceCreationOrUpdateRequest(subscriptionActivatedEvent));
     }
 
-    @Async("taskExecutor")
+    //@Async("taskExecutor")
     @ApplicationModuleListener
-    void onInvoiceClosedEvent(final InvoiceClosedEvent invoiceClosedEvent) {
-        eventPublisher.publish(
-                NotificationRequestedEvent.create(
-                        "",
-                        "Customer Registered",
-                        "Welcome!"
-                )
-        );
+    public void onInvoiceClosedEvent(final InvoiceClosedEvent invoiceClosedEvent) {
+//        eventPublisher.publish(
+//                NotificationRequestedEvent.create(
+//                        "",
+//                        "Customer Registered",
+//                        "Welcome!"
+//                )
+//        );
     }
 }

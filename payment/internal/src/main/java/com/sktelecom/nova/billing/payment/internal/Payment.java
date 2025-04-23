@@ -1,6 +1,6 @@
-package com.sktelecom.nova.modular.monolith.billing.payment.internal;
+package com.sktelecom.nova.billing.payment.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.payment.event.PaymentCreatedEvent;
+import com.sktelecom.nova.billing.payment.event.PaymentCreatedEvent;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

@@ -1,4 +1,4 @@
-package com.sktelecom.nova.billing.invoice;
+package com.sktelecom.nova.billing.invoice.api;
 
 import java.math.BigDecimal;
 import java.util.UUID;

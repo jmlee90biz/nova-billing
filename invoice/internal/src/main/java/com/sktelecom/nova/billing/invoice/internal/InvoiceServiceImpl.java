@@ -1,12 +1,12 @@
-package com.sktelecom.nova.modular.monolith.billing.invoice.internal;
+package com.sktelecom.nova.billing.invoice.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.invoice.api.InvoiceCreationRequest;
-import com.sktelecom.nova.modular.monolith.billing.invoice.api.InvoiceDto;
-import com.sktelecom.nova.modular.monolith.billing.invoice.api.InvoiceService;
+import com.sktelecom.nova.billing.invoice.api.InvoiceCreationRequest;
+import com.sktelecom.nova.billing.invoice.api.InvoiceDto;
+import com.sktelecom.nova.billing.invoice.api.InvoiceService;
 
-
-import com.sktelecom.nova.modular.monolith.shared.kernel.EventPublisher;
+import com.sktelecom.nova.billing.invoice.event.InvoiceCreatedEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +19,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
-    private final EventPublisher eventPublisher;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     @Override
     public InvoiceDto createInvoice(InvoiceCreationRequest invoiceCreationRequest) {
-        Optional<Invoice> registeredInvoice = invoiceRepository.getInvoiceByCustomerId(invoiceCreationRequest.subscriptionActivatedEvent().customerId());
+        //Optional<Invoice> registeredInvoice = invoiceRepository.getInvoiceByCustomerId(invoiceCreationRequest.subscriptionActivatedEvent().customerId());
 
         /*
         if (registeredInvoice.isPresent()) {
@@ -39,7 +39,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         } else {
             */
             // Insert 로직
-            Invoice registeredCustomer = invoiceRepository.save(
+            Invoice registeredInvoice = invoiceRepository.save(
                     Invoice.createInvoice(
                             invoiceCreationRequest.subscriptionActivatedEvent().customerId(),
                             BigDecimal.ZERO,
@@ -54,8 +54,11 @@ public class InvoiceServiceImpl implements InvoiceService {
                             invoiceCreationRequest.subscriptionActivatedEvent().price()
                     )
             );
-            return InvoiceMapper.toInvoiceDto(registeredCustomer);
+
+            eventPublisher.publishEvent(registeredInvoice.createInvoiceCreatedEvent());
+            return InvoiceMapper.toInvoiceDto(registeredInvoice);
        // }
+
     }
 
     @Override

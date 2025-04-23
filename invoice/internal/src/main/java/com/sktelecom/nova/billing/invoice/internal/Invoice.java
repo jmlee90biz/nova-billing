@@ -1,8 +1,9 @@
-package com.sktelecom.nova.modular.monolith.billing.invoice.internal;
+package com.sktelecom.nova.billing.invoice.internal;
 
-import com.sktelecom.nova.modular.monolith.billing.invoice.event.InvoiceCreatedEvent;
-import com.sktelecom.nova.modular.monolith.customer.subscription.api.SubscriptionStatus;
-import jakarta.persistence.*;
+import com.sktelecom.nova.billing.invoice.event.InvoiceCreatedEvent;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -63,7 +64,7 @@ class Invoice {
 
     }
 
-    InvoiceCreatedEvent createCustomerRegisteredEvent() {
+    InvoiceCreatedEvent createInvoiceCreatedEvent() {
         return new InvoiceCreatedEvent(this.getId(), this.getCustomerId(), this.getAmount());
     }
 

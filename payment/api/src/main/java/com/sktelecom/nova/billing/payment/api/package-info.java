@@ -1,4 +1,4 @@
-@NamedInterface("api")
-package com.sktelecom.nova.modular.monolith.billing.payment.api;
+@ApplicationModule(displayName="billing-payment-api")
+package com.sktelecom.nova.billing.payment.api;
 
-import org.springframework.modulith.NamedInterface;
+import org.springframework.modulith.ApplicationModule;

@@ -1,8 +1,8 @@
-package com.sktelecom.nova.billing.payment.internal;
+package com.sktelecom.nova.billing.usage.internal;
 
-import com.sktelecom.nova.billing.payment.api.UsageRecordCreationRequest;
-import com.sktelecom.nova.billing.payment.api.UsageRecordDto;
-import com.sktelecom.nova.billing.payment.api.UsageService;
+import com.sktelecom.nova.billing.usage.api.UsageRecordCreationRequest;
+import com.sktelecom.nova.billing.usage.api.UsageRecordDto;
+import com.sktelecom.nova.billing.usage.api.UsageService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
